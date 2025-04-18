@@ -28,6 +28,17 @@ export const updateUser = async (id, updatedData) => {
   }
 };
 
+export const addUser = async (newUserData) => {
+    try {
+    const userResponse = await axiosUserInstance.post(`/addUser/`,newUserData);
+    console.log('userResponse :',userResponse.data);
+      return userResponse.data;
+  } catch (error) {
+    console.log("error :", error.userResponse?.data?.error);
+  }
+};
+
+
 /* export const getUsers = async () => {
     try {
     const userResponse = await axiosUserInstance.get(`/getUser`);
