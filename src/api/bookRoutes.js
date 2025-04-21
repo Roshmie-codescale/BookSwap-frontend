@@ -8,7 +8,7 @@ export const axiosBookInstance = axios.create({
   },
 });
 
-export const getBookById = async id => {
+export const getBookById = async (id) => {
   try {
     const bookResponse = await axiosBookInstance.get(`/listBook/${id}`);
     console.log('bookResponse :', bookResponse.data);
@@ -51,9 +51,9 @@ export const addBook = async newBookData => {
   }
 };
 
-export const deleteBook = async id => {
+export const deleteBook = async (id) => {
   try {
-    const bookResponse = await axiosBookInstance.get(`/deleteBook/${id}`);
+    const bookResponse = await axiosBookInstance.delete(`/deleteBook/${id}`);
     console.log('bookResponse :', bookResponse.data);
     return bookResponse.data;
   } catch (error) {
@@ -84,5 +84,17 @@ export const filterbook = async ({
     return bookResponse.data;
   } catch (error) {
     console.log('error:', error.bookResponse?.data?.error);
+  }
+};
+
+export const searchBookByNameAuthor = async (searchKeyword) => {
+  try {
+    const response = await axiosBookInstance.get(`/filterBookAuthName`, {
+      params: { search: searchKeyword },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching filtered books:', error.response?.data?.message || error.message);
+    throw new Error('Failed to filter books');
   }
 };
